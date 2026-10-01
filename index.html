@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bruno Eliseu Schutz | Desenvolvedor Frontend e de Sistemas</title>
+  <meta name="description" content="Portfólio de Bruno Eliseu Schutz, desenvolvedor de software com foco em Frontend e Sistemas.">
+  <meta name="theme-color" content="#0d0a1f">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Bruno Eliseu Schutz | Portfólio">
+  <meta property="og:description" content="Desenvolvedor de software com foco em Frontend e Sistemas.">
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%230d0a1f'/><text x='16' y='22' font-family='monospace' font-size='15' font-weight='700' fill='%23bd93f9' text-anchor='middle'>&gt;_</text></svg>">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&display=swap">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/devicon.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <canvas id="bg" aria-hidden="true"></canvas>
+
+  <header class="titlebar">
+    <div class="dots" aria-hidden="true"><i></i><i></i><i></i></div>
+    <p class="titlebar-name">bruno-schutz — portfolio — Visual Studio Code</p>
+  </header>
+
+  <aside class="sidebar">
+    <div class="activity" aria-hidden="true">
+      <span class="active"><svg viewBox="0 0 24 24"><path d="M4 3h9l4 4v5h-2V8h-3V5H6v14h6v2H4zM14 13h7v8h-7z" /></svg></span>
+      <span><svg viewBox="0 0 24 24"><path d="M10 3a7 7 0 0 1 5.6 11.2l5.1 5.1-1.4 1.4-5.1-5.1A7 7 0 1 1 10 3zm0 2a5 5 0 1 0 0 10 5 5 0 0 0 0-10z" /></svg></span>
+      <span><svg viewBox="0 0 24 24"><path d="M6 3a3 3 0 0 1 1 5.8v6.4A3 3 0 1 1 5 15.2V8.8A3 3 0 0 1 6 3zm12 3a3 3 0 0 1 1 5.8c-.3 3.5-3 5.2-8 5.2v-2c4 0 5.7-1.1 6-3.2A3 3 0 0 1 18 6z" /></svg></span>
+      <span><svg viewBox="0 0 24 24"><path d="M3 3h8v8H3zm10 0h8v8h-8zM3 13h8v8H3zm10 4h8v4h-8zm0-4h4v4h-4z" /></svg></span>
+    </div>
+
+    <nav class="explorer" aria-label="Explorador de arquivos">
+      <p class="explorer-title">EXPLORADOR</p>
+      <p class="folder">▾ PORTFOLIO</p>
+      <ul>
+        <li><a href="#inicio" data-section="0"><i class="devicon-bash-plain"></i>terminal</a></li>
+        <li><a href="#sobre" data-section="1"><i class="devicon-markdown-original"></i>sobre.md</a></li>
+        <li><a href="#projetos" data-section="2"><i class="devicon-json-plain"></i>projetos.json</a></li>
+        <li><a href="#skills" data-section="3"><i class="devicon-python-plain"></i>skills.py</a></li>
+        <li><a href="#contato" data-section="4"><i class="devicon-bash-plain"></i>contato.sh</a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <div class="workbench">
+    <nav class="tabs" aria-label="Seções">
+      <a href="#inicio" data-section="0">terminal</a>
+      <a href="#sobre" data-section="1">sobre.md</a>
+      <a href="#projetos" data-section="2">projetos.json</a>
+      <a href="#skills" data-section="3">skills.py</a>
+      <a href="#contato" data-section="4">contato.sh</a>
+    </nav>
+
+    <main>
+      <!-- Início: terminal interativo -->
+      <section id="inicio" class="hero">
+        <div class="window terminal">
+          <div class="window-bar"><span>TERMINAL</span><span class="muted">zsh</span></div>
+
+          <div class="terminal-body">
+            <p class="t-line" style="--i: 0"><span class="ps">bruno@dev</span> <span class="path">~</span> <span class="dollar">$</span> whoami</p>
+            <h1 class="t-line hero-name" style="--i: 1">Bruno Eliseu Schutz</h1>
+            <p class="t-line" style="--i: 2"><span class="ps">bruno@dev</span> <span class="path">~</span> <span class="dollar">$</span> cat cargo.txt</p>
+            <p class="t-line hero-typed" style="--i: 3"><span class="arrow">➜</span> <span id="typed"></span></p>
+            <p class="t-line" style="--i: 4"><span class="ps">bruno@dev</span> <span class="path">~</span> <span class="dollar">$</span> ls atalhos/</p>
+            <p class="t-line shortcuts" style="--i: 5">
+              <a href="#projetos">projetos.json</a>
+              <a href="#skills">skills.py</a>
+              <a href="#contato">contato.sh</a>
+            </p>
+            <p class="t-line c" style="--i: 6"># este terminal funciona! experimente: help, hello, tema matrix</p>
+
+            <div id="term-out" class="term-out" aria-live="polite"></div>
+
+            <form id="term-form" class="t-line prompt-line" style="--i: 7" autocomplete="off">
+              <label for="term-in"><span class="ps">bruno@dev</span> <span class="path">~</span> <span class="dollar">$</span></label>
+              <input id="term-in" type="text" maxlength="80" spellcheck="false" autocapitalize="off" autocorrect="off" placeholder="digite help e aperte Enter" aria-label="Comando do terminal">
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <!-- Sobre -->
+      <section id="sobre" class="section">
+        <div class="window editor">
+          <div class="window-bar"><span><i class="devicon-markdown-original"></i> sobre.md</span></div>
+
+          <div class="code">
+            <p class="ln"><span class="md-h"># Sobre mim</span></p>
+            <p class="ln"></p>
+            <p class="ln">Sou desenvolvedor de software com foco em <b class="md-b">**Frontend**</b> e <b class="md-b">**Sistemas**</b>. Curto transformar problemas do dia a dia em soluções simples, funcionais e fáceis de usar.</p>
+            <p class="ln"></p>
+            <p class="ln">Gosto de entender como as coisas funcionam por trás das interfaces. Por isso vivo explorando tecnologias novas e criando projetos próprios para colocar o aprendizado em prática <span class="c">(e quebrar coisas no caminho, faz parte)</span>.</p>
+            <p class="ln"></p>
+            <p class="ln">Hoje estou estudando <b class="md-b">**Python**</b> e desenvolvendo projetos de sistemas de gestão, automação e aplicações web. Nas horas vagas, aprendo a trabalhar lado a lado com IA, rumo a <b class="md-b">**AI Engineer**</b>. Ou, no mínimo, um vibe coder de respeito.</p>
+            <p class="ln"></p>
+            <p class="ln"><span class="c">```js</span></p>
+            <p class="ln"><span class="k">const</span> <span class="v">bruno</span> = {</p>
+            <p class="ln in">foco: [<span class="s">"Frontend"</span>, <span class="s">"Desenvolvimento de Sistemas"</span>],</p>
+            <p class="ln in">estudando: [<span class="s">"Python"</span>, <span class="s">"C#"</span>, <span class="s">"Node"</span>],</p>
+            <p class="ln in">projetos: [<span class="s">"Luz Holística"</span>, <span class="s">"Finanças"</span>, <span class="s">"N&amp;N Petshop"</span>],</p>
+            <p class="ln in">curiosidade: <span class="n">Infinity</span>,</p>
+            <p class="ln">};</p>
+            <p class="ln"><span class="c">```</span></p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Projetos -->
+      <section id="projetos" class="section">
+        <div class="window editor">
+          <div class="window-bar"><span><i class="devicon-json-plain"></i> projetos.json</span><span class="muted">← arraste →</span></div>
+
+          <div class="code">
+            <p class="ln"><span class="c">// arraste os cards para o lado</span></p>
+            <p class="ln">[</p>
+          </div>
+
+          <div class="strip" tabindex="0" aria-label="Lista de projetos. Arraste ou use as setas para navegar.">
+            <article class="project">
+              <div class="preview preview--luz" aria-hidden="true"><span>✦</span></div>
+              <div class="json">
+                <p>{</p>
+                <p class="in"><span class="key">"nome"</span>: <span class="s">"Luz Holística"</span>,</p>
+                <p class="in"><span class="key">"tipo"</span>: <span class="s">"Gestão de terreiros"</span>,</p>
+                <p class="in"><span class="key">"sobre"</span>: <span class="s">"Organiza membros, eventos e rotinas da casa em um só lugar."</span>,</p>
+                <p class="in"><span class="key">"stack"</span>: [<span class="s">"Frontend"</span>, <span class="s">"Sistemas"</span>]</p>
+                <p>},</p>
+              </div>
+              <a href="#" class="project-link">abrir projeto ↗</a>
+            </article>
+
+            <article class="project">
+              <div class="preview preview--financas" aria-hidden="true">
+                <div class="bars"><i style="--h: 40%"></i><i style="--h: 65%"></i><i style="--h: 30%"></i><i style="--h: 80%"></i><i style="--h: 55%"></i><i style="--h: 95%"></i><i style="--h: 70%"></i></div>
+              </div>
+              <div class="json">
+                <p>{</p>
+                <p class="in"><span class="key">"nome"</span>: <span class="s">"Finanças"</span>,</p>
+                <p class="in"><span class="key">"tipo"</span>: <span class="s">"Uso pessoal"</span>,</p>
+                <p class="in"><span class="key">"sobre"</span>: <span class="s">"Controle financeiro criado como projeto de aprendizado."</span>,</p>
+                <p class="in"><span class="key">"stack"</span>: [<span class="s">"Python"</span>]</p>
+                <p>},</p>
+              </div>
+              <a href="#" class="project-link">abrir projeto ↗</a>
+            </article>
+
+            <article class="project">
+              <div class="preview preview--portfolio" aria-hidden="true"><span>&lt;/&gt;</span></div>
+              <div class="json">
+                <p>{</p>
+                <p class="in"><span class="key">"nome"</span>: <span class="s">"Este portfólio"</span>,</p>
+                <p class="in"><span class="key">"tipo"</span>: <span class="s">"Site pessoal"</span>,</p>
+                <p class="in"><span class="key">"sobre"</span>: <span class="s">"Tema de editor com fundo 3D e terminal interativo."</span>,</p>
+                <p class="in"><span class="key">"stack"</span>: [<span class="s">"Three.js"</span>, <span class="s">"Typed.js"</span>]</p>
+                <p>},</p>
+              </div>
+              <a href="https://github.com/Tocdor-creator" target="_blank" rel="noopener" class="project-link">ver código ↗</a>
+            </article>
+
+            <article class="project project--soon">
+              <div class="json">
+                <p>{</p>
+                <p class="in"><span class="key">"nome"</span>: <span class="n">null</span>,</p>
+                <p class="in"><span class="c">// próximo projeto em breve...</span></p>
+                <p>}</p>
+              </div>
+              <a href="https://github.com/Tocdor-creator" target="_blank" rel="noopener" class="project-link">github ↗</a>
+            </article>
+          </div>
+
+          <div class="code">
+            <p class="ln">]</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Skills -->
+      <section id="skills" class="section">
+        <div class="window editor">
+          <div class="window-bar"><span><i class="devicon-python-plain"></i> skills.py</span></div>
+
+          <div class="code">
+            <p class="ln"><span class="c"># minhas ferramentas do dia a dia</span></p>
+            <p class="ln"><span class="v">skills</span> = {</p>
+            <p class="ln in"><span class="s">"frontend"</span>: [<span class="s">"HTML"</span>, <span class="s">"CSS"</span>, <span class="s">"JavaScript"</span>, <span class="s">"Responsividade"</span>],</p>
+            <p class="ln in"><span class="s">"sistemas"</span>: [<span class="s">"Python"</span>, <span class="s">"SQL"</span>, <span class="s">"Linux"</span>],</p>
+            <p class="ln in"><span class="s">"ferramentas"</span>: [<span class="s">"Git"</span>, <span class="s">"GitHub"</span>],</p>
+            <p class="ln">}</p>
+            <p class="ln"></p>
+            <p class="ln"><span class="k">for</span> area, lista <span class="k">in</span> skills.items():</p>
+            <p class="ln in"><span class="n">print</span>(<span class="s">f"{area}: {', '.join(lista)}"</span>)</p>
+          </div>
+
+          <div class="output">
+            <p class="c">$ python skills.py</p>
+            <p>
+              <span class="key">frontend</span>:
+              <span class="chip"><i class="devicon-html5-plain"></i>HTML</span>
+              <span class="chip"><i class="devicon-css3-plain"></i>CSS</span>
+              <span class="chip"><i class="devicon-javascript-plain"></i>JavaScript</span>
+              <span class="chip">⧉ Responsividade</span>
+            </p>
+            <p>
+              <span class="key">sistemas</span>:
+              <span class="chip"><i class="devicon-python-plain"></i>Python</span>
+              <span class="chip">⛁ SQL</span>
+              <span class="chip"><i class="devicon-linux-plain"></i>Linux</span>
+            </p>
+            <p>
+              <span class="key">ferramentas</span>:
+              <span class="chip"><i class="devicon-git-plain"></i>Git</span>
+              <span class="chip"><i class="devicon-github-original"></i>GitHub</span>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contato -->
+      <section id="contato" class="section">
+        <div class="window editor">
+          <div class="window-bar"><span><i class="devicon-bash-plain"></i> contato.sh</span></div>
+
+          <div class="code">
+            <p class="ln"><span class="c">#!/bin/bash</span></p>
+            <p class="ln"><span class="c"># tem uma ideia, um projeto ou uma vaga? me chama!</span></p>
+            <p class="ln"></p>
+            <p class="ln"><span class="v">email</span>=<a class="s" href="mailto:bruno10.schutz@hotmail.com">"bruno10.schutz@hotmail.com"</a></p>
+            <p class="ln"><span class="v">github</span>=<a class="s" href="https://github.com/Tocdor-creator" target="_blank" rel="noopener">"github.com/bruno-schutz/"</a></p>
+            <p class="ln"><span class="v">linkedin</span>=<a class="s" href="https://www.linkedin.com/in/bruno-schutz/" target="_blank" rel="noopener">"linkedin.com/in/bruno-schutz/"</a></p>
+            <p class="ln"></p>
+            <p class="ln"><span class="k">echo</span> <span class="s">"Vamos construir algo juntos?"</span></p>
+          </div>
+
+          <div class="contact-actions">
+            <a href="mailto:bruno10.schutz@hotmail.com" class="btn btn--primary">$ enviar email</a>
+            <a href="https://github.com/Tocdor-creator" target="_blank" rel="noopener" class="btn"><i class="devicon-github-original"></i> github</a>
+            <a href="https://www.linkedin.com/in/bruno-schutz/" target="_blank" rel="noopener" class="btn"><i class="devicon-linkedin-plain"></i> linkedin</a>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <footer class="statusbar">
+    <span class="statusbar-branch">⎇ main</span>
+    <span>⊗ 0 ⚠ 0</span>
+    <span id="sb-lang" class="statusbar-lang">Shell</span>
+    <span class="hide-mobile">UTF-8</span>
+    <span class="hide-mobile">© <span id="year"></span> Bruno Eliseu Schutz</span>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/typed.js@2.1.0/dist/typed.umd.js"></script>
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
