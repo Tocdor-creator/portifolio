@@ -1,6 +1,6 @@
-import { initBackground } from "./background.js";
-import { initTerminal } from "./terminal.js";
-import { initActiveSection, initDraggableStrip, initReveal } from "./ui.js";
+import { initBackground } from "./background.js?v=2";
+import { initTerminal } from "./terminal.js?v=2";
+import { initActiveSection, initDraggableStrip, initReveal } from "./ui.js?v=2";
 
 new Typed("#typed", {
   strings: [
