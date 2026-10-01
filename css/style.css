@@ -469,6 +469,21 @@ main section { scroll-margin-top: calc(var(--title-h) + var(--tabs-h) + 12px); }
   box-shadow: var(--glow);
 }
 
+.preview--cert {
+  padding: 0 1rem;
+  background-image: radial-gradient(circle at 50% 50%, color-mix(in srgb, var(--green) 12%, transparent), transparent 70%);
+}
+
+.preview--cert pre {
+  font: inherit;
+  font-size: 10.5px;
+  line-height: 1.6;
+  color: var(--green);
+  text-shadow: 0 0 10px color-mix(in srgb, var(--green) 50%, transparent);
+  white-space: pre;
+  overflow: hidden;
+}
+
 .preview--portfolio {
   background-image:
     radial-gradient(circle at 30% 30%, color-mix(in srgb, var(--cyan) 25%, transparent), transparent 50%),
