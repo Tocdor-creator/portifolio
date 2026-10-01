@@ -1,4 +1,4 @@
-# Portfólio · Bruno Eliseu Schutz
+# Portfólio · Bruno Schutz
 
 Portfólio pessoal com a cara de um editor de código: tema inspirado no Dracula, seções em forma de arquivos (`sobre.md`, `projetos.json`, `skills.py`, `contato.sh`) e um terminal interativo na página inicial.
 
