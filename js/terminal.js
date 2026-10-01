@@ -62,7 +62,7 @@ export function initTerminal({ background }) {
     whoami: {
       description: "quem sou eu",
       run() {
-        print("Bruno Eliseu Schutz", "hl");
+        print("Bruno Schutz", "hl");
         print("desenvolvedor frontend e de sistemas · estudando Python, C# e Node");
       },
     },
