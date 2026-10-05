@@ -143,6 +143,27 @@ a.s:hover { text-decoration: underline; }
   white-space: nowrap;
 }
 
+.lang-switch {
+  display: flex;
+  margin-left: auto;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.lang-switch button {
+  padding: 1px 9px;
+  font: inherit;
+  font-size: 11px;
+  color: var(--comment);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.lang-switch button:hover { color: var(--text); }
+.lang-switch button[aria-pressed="true"] { color: var(--bg); background: var(--purple); font-weight: 700; }
+
 .sidebar {
   position: fixed;
   top: var(--title-h);
@@ -466,6 +487,47 @@ main section { scroll-margin-top: calc(var(--title-h) + var(--tabs-h) + 12px); }
   background: linear-gradient(180deg, var(--pink), var(--purple));
 }
 
+.preview--radar {
+  background-image: radial-gradient(circle, color-mix(in srgb, var(--green) 10%, transparent), transparent 60%);
+}
+
+.radar-tela {
+  position: relative;
+  width: 104px;
+  height: 104px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid color-mix(in srgb, var(--purple) 70%, transparent);
+  background:
+    linear-gradient(color-mix(in srgb, var(--purple) 30%, transparent), color-mix(in srgb, var(--purple) 30%, transparent)) center / 1px 100% no-repeat,
+    linear-gradient(color-mix(in srgb, var(--purple) 30%, transparent), color-mix(in srgb, var(--purple) 30%, transparent)) center / 100% 1px no-repeat,
+    repeating-radial-gradient(circle, transparent 0 16px, color-mix(in srgb, var(--purple) 35%, transparent) 16px 17px);
+}
+
+.radar-tela .varredura {
+  position: absolute;
+  inset: 0;
+  background: conic-gradient(from 0deg, color-mix(in srgb, var(--green) 55%, transparent), transparent 22%);
+  animation: radar-giro 3s linear infinite;
+}
+
+.radar-tela b {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 8px var(--green);
+}
+
+@keyframes radar-giro { to { transform: rotate(1turn); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .radar-tela .varredura { animation: none; }
+}
+
 .preview--cert {
   padding: 0 1rem;
   background-image: radial-gradient(circle at 50% 50%, color-mix(in srgb, var(--green) 12%, transparent), transparent 70%);
@@ -569,7 +631,7 @@ main section { scroll-margin-top: calc(var(--title-h) + var(--tabs-h) + 12px); }
   .sidebar,
   .statusbar .hide-mobile { display: none; }
 
-  .titlebar-name { position: static; transform: none; margin-left: 14px; overflow: hidden; text-overflow: ellipsis; }
+  .titlebar-name { position: static; transform: none; flex: 1; min-width: 0; margin: 0 12px; overflow: hidden; text-overflow: ellipsis; }
   .hero { padding: 1.5rem 0.75rem; }
   .terminal-body { padding: 1rem; }
   .section { padding: 1.5rem 0.75rem; }

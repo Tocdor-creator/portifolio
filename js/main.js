@@ -1,20 +1,30 @@
-import { initBackground } from "./background.js?v=2";
-import { initTerminal } from "./terminal.js?v=2";
-import { initActiveSection, initDraggableStrip, initReveal } from "./ui.js?v=2";
+import { initI18n, getLang, onLangChange } from "./i18n.js?v=3";
+import { initBackground } from "./background.js?v=3";
+import { initTerminal } from "./terminal.js?v=3";
+import { initActiveSection, initDraggableStrip, initReveal } from "./ui.js?v=3";
 
-new Typed("#typed", {
-  strings: [
-    "Desenvolvedor Frontend",
-    "Desenvolvedor de Sistemas",
-    "Criador do Luz Holística",
-    "Aprendendo Python todo dia",
-  ],
-  typeSpeed: 50,
-  backSpeed: 28,
-  backDelay: 1600,
-  startDelay: 900,
-  loop: true,
-});
+const TYPED_STRINGS = {
+  pt: ["Desenvolvedor Frontend", "Desenvolvedor de Sistemas", "Criador do Luz Holística", "Aprendendo Python todo dia"],
+  en: ["Frontend Developer", "Systems Developer", "Creator of Luz Holística", "Learning Python every day"],
+};
+
+let typed;
+
+function startTyped(lang, startDelay = 0) {
+  typed?.destroy();
+  typed = new Typed("#typed", {
+    strings: TYPED_STRINGS[lang],
+    typeSpeed: 50,
+    backSpeed: 28,
+    backDelay: 1600,
+    startDelay,
+    loop: true,
+  });
+}
+
+initI18n();
+startTyped(getLang(), 900);
+onLangChange((lang) => startTyped(lang));
 
 // dispara a animação das linhas do terminal
 document.body.classList.add("loaded");

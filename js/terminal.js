@@ -4,9 +4,17 @@
 // Só os comandos da lista abaixo existem, os argumentos são validados
 // e toda saída é escrita com textContent.
 
+import { getLang, setLang } from "./i18n.js?v=3";
+
 const MAX_LENGTH = 80;
-const THEMES = ["dracula", "matrix", "oceano", "sunset"];
 const HEX_COLOR = /^#[0-9a-f]{6}$/i;
+
+// nome digitado -> tema (aceita os nomes em português e em inglês)
+const THEMES = { dracula: "dracula", matrix: "matrix", oceano: "oceano", ocean: "oceano", sunset: "sunset" };
+const THEME_NAMES = { pt: "dracula, matrix, oceano, sunset", en: "dracula, matrix, ocean, sunset" };
+
+// devolve o texto no idioma atual
+const tr = (pt, en) => (getLang() === "en" ? en : pt);
 
 export function initTerminal({ background }) {
   const body = document.querySelector(".terminal-body");
@@ -37,72 +45,129 @@ export function initTerminal({ background }) {
     background.applyPalette();
   }
 
-  const commands = {
-    help: {
-      description: "lista os comandos",
+  // Cada comando tem um nome em português e outro em inglês (iguais quando não precisa traduzir)
+  const commands = [
+    {
+      pt: "help", en: "help",
+      description: () => tr("lista os comandos", "lists the commands"),
       run() {
-        print("comandos disponíveis:", "info");
-        for (const [name, command] of Object.entries(commands)) {
-          print(`  ${name.padEnd(9)} ${command.description}`);
-        }
-        print("dica: Tab completa o comando e ↑ ↓ navegam no histórico", "dim");
+        print(tr("comandos disponíveis:", "available commands:"), "info");
+        const lang = getLang();
+        commands.forEach((command) => print(`  ${command[lang].padEnd(9)} ${command.description()}`));
+        print(tr("dica: Tab completa o comando e ↑ ↓ navegam no histórico", "tip: Tab completes the command and ↑ ↓ browse the history"), "dim");
       },
     },
-    hello: {
-      description: "o clássico",
+    {
+      pt: "hello", en: "hello",
+      description: () => tr("o clássico", "the classic"),
       run() {
         print("Hello, World! 👋", "big");
-        print("obrigado por visitar meu portfólio :)", "dim");
+        print(tr("obrigado por visitar meu portfólio :)", "thanks for visiting my portfolio :)"), "dim");
       },
     },
-    echo: {
-      description: "repete o texto (echo oi)",
+    {
+      pt: "echo", en: "echo",
+      description: () => tr("repete o texto (echo oi)", "repeats the text (echo hi)"),
       run: (args) => print(args.join(" ")),
     },
-    whoami: {
-      description: "quem sou eu",
+    {
+      pt: "whoami", en: "whoami",
+      description: () => tr("quem sou eu", "who I am"),
       run() {
         print("Bruno Schutz", "hl");
-        print("desenvolvedor frontend e de sistemas · estudando Python, C# e Node");
+        print(tr(
+          "desenvolvedor frontend e de sistemas · estudando Python, C# e Node",
+          "frontend and systems developer · studying Python, C# and Node"
+        ));
       },
     },
-    sobre: { description: "abre sobre.md", run: () => openSection("sobre", "abrindo sobre.md...") },
-    projetos: { description: "abre projetos.json", run: () => openSection("projetos", "abrindo projetos.json...") },
-    skills: { description: "abre skills.py", run: () => openSection("skills", "executando skills.py...") },
-    contato: { description: "abre contato.sh", run: () => openSection("contato", "abrindo contato.sh...") },
-    tema: {
-      description: `muda as cores (${THEMES.join(", ")})`,
+    {
+      pt: "sobre", en: "about",
+      description: () => tr("abre sobre.md", "opens about.md"),
+      run: () => openSection("sobre", tr("abrindo sobre.md...", "opening about.md...")),
+    },
+    {
+      pt: "projetos", en: "projects",
+      description: () => tr("abre projetos.json", "opens projects.json"),
+      run: () => openSection("projetos", tr("abrindo projetos.json...", "opening projects.json...")),
+    },
+    {
+      pt: "skills", en: "skills",
+      description: () => tr("abre skills.py", "opens skills.py"),
+      run: () => openSection("skills", tr("executando skills.py...", "running skills.py...")),
+    },
+    {
+      pt: "contato", en: "contact",
+      description: () => tr("abre contato.sh", "opens contact.sh"),
+      run: () => openSection("contato", tr("abrindo contato.sh...", "opening contact.sh...")),
+    },
+    {
+      pt: "tema", en: "theme",
+      description: () => tr(`muda as cores (${THEME_NAMES.pt})`, `changes the colors (${THEME_NAMES.en})`),
       run([name = ""]) {
         name = name.toLowerCase();
-        if (!THEMES.includes(name)) return print(`uso: tema <${THEMES.join("|")}>`, "err");
-        setTheme(name);
-        print(`tema "${name}" aplicado ✓`, "ok");
+        if (!Object.hasOwn(THEMES, name)) {
+          const list = THEME_NAMES[getLang()].replaceAll(", ", "|");
+          return print(tr(`uso: tema <${list}>`, `usage: theme <${list}>`), "err");
+        }
+        setTheme(THEMES[name]);
+        print(tr(`tema "${name}" aplicado ✓`, `theme "${name}" applied ✓`), "ok");
       },
     },
-    cor: {
-      description: "cor de destaque (cor #ff79c6)",
+    {
+      pt: "cor", en: "color",
+      description: () => tr("cor de destaque (cor #ff79c6)", "accent color (color #ff79c6)"),
       run([hex = ""]) {
-        if (!HEX_COLOR.test(hex)) return print("uso: cor #rrggbb   (ex: cor #50fa7b)", "err");
+        if (!HEX_COLOR.test(hex)) {
+          return print(tr("uso: cor #rrggbb   (ex: cor #50fa7b)", "usage: color #rrggbb   (e.g. color #50fa7b)"), "err");
+        }
         root.style.setProperty("--purple", hex);
         background.applyPalette();
-        print(`cor de destaque agora é ${hex} ✓`, "ok");
+        print(tr(`cor de destaque agora é ${hex} ✓`, `accent color is now ${hex} ✓`), "ok");
       },
     },
-    party: {
-      description: "agita o fundo",
+    {
+      pt: "idioma", en: "lang",
+      description: () => tr("troca o idioma (idioma en)", "switches the language (lang pt)"),
+      run([code = ""]) {
+        code = code.toLowerCase();
+        if (code !== "pt" && code !== "en") return print(tr("uso: idioma <pt|en>", "usage: lang <pt|en>"), "err");
+        setLang(code);
+        print(tr("idioma: português ✓", "language: English ✓"), "ok");
+      },
+    },
+    {
+      pt: "party", en: "party",
+      description: () => tr("agita o fundo", "shakes up the background"),
       run() {
         background.party();
-        print("🎉 party mode por 4 segundos!", "hl");
+        print(tr("🎉 party mode por 4 segundos!", "🎉 party mode for 4 seconds!"), "hl");
       },
     },
-    date: { description: "data e hora", run: () => print(new Date().toLocaleString("pt-BR")) },
-    history: {
-      description: "comandos já digitados",
+    {
+      pt: "date", en: "date",
+      description: () => tr("data e hora", "date and time"),
+      run: () => print(new Date().toLocaleString(tr("pt-BR", "en-US"))),
+    },
+    {
+      pt: "history", en: "history",
+      description: () => tr("comandos já digitados", "commands typed so far"),
       run: () => commandHistory.forEach((cmd, i) => print(`  ${String(i + 1).padStart(3)}  ${cmd}`)),
     },
-    sudo: { description: "tenta ser admin", run: () => print("permissão negada: boa tentativa 😄", "err") },
-    clear: { description: "limpa o terminal", run: () => output.replaceChildren() },
-  };
+    {
+      pt: "sudo", en: "sudo",
+      description: () => tr("tenta ser admin", "tries to be admin"),
+      run: () => print(tr("permissão negada: boa tentativa 😄", "permission denied: nice try 😄"), "err"),
+    },
+    {
+      pt: "clear", en: "clear",
+      description: () => tr("limpa o terminal", "clears the terminal"),
+      run: () => output.replaceChildren(),
+    },
+  ];
+
+  // aceita o nome em qualquer um dos dois idiomas
+  const findCommand = (name) => commands.find((command) => command.pt === name || command.en === name);
 
   form.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -115,11 +180,10 @@ export function initTerminal({ background }) {
     print(`bruno@dev ~ $ ${text}`, "dim");
 
     const [name, ...args] = text.split(/\s+/);
-    const key = name.toLowerCase();
+    const command = findCommand(name.toLowerCase());
 
-    // Object.hasOwn evita nomes herdados como "constructor" ou "__proto__"
-    if (Object.hasOwn(commands, key)) commands[key].run(args);
-    else print(`comando não encontrado: ${name}. digite "help"`, "err");
+    if (command) command.run(args);
+    else print(tr(`comando não encontrado: ${name}. digite "help"`, `command not found: ${name}. type "help"`), "err");
 
     body.scrollTop = body.scrollHeight;
   });
@@ -136,7 +200,7 @@ export function initTerminal({ background }) {
       // com o campo vazio, o Tab segue o fluxo normal do teclado
       event.preventDefault();
       const partial = input.value.trim().toLowerCase();
-      const match = Object.keys(commands).find((name) => name.startsWith(partial));
+      const match = commands.map((command) => command[getLang()]).find((name) => name.startsWith(partial));
       if (match) input.value = `${match} `;
     }
   });

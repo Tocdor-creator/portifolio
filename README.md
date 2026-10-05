@@ -10,7 +10,7 @@ A parte que eu mais curti fazer foi o terminal da página inicial. Ele funciona 
 - 4 temas de cor: dracula, matrix, oceano e sunset
 - Fundo animado com Three.js, uma rede de pontos que reage ao mouse
 - Cards de projetos que dá pra arrastar pro lado
-- Funciona no celular também (a barra lateral some e as abas viram o menu)
+- Versão em português e inglês (botão PT | EN no topo, ou `lang en` no terminal)
 
 Sobre o terminal: como qualquer pessoa pode digitar ali, tomei cuidado pra ele não executar nada. Só os comandos que eu defini funcionam, a cor só é aceita no formato `#rrggbb` e o texto sempre é exibido como texto, nunca como HTML. Pode tentar um `echo <script>` que não vai rolar 😄
 
